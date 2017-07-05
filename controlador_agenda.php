@@ -2,10 +2,18 @@
 
 	function abrirArquivo(){
 
-		$contatosAuxiliar = file_get_contents('contatos.json');
-		$contatosAuxiliar = json_decode($contatosAuxiliar, true);
+		$contatosAuxiliar = file_get_contents('contatos.json'); //pega o conteúdo do arquivo json
+		$contatosAuxiliar = json_decode($contatosAuxiliar, true); //trnasforma o conteúdo em array
 
 		return $contatosAuxiliar;
+	}
+
+	function salvarArquivo($contatosAuxiliar){
+
+		$contatosJson = json_encode($contatosAuxiliar, JSON_PRETTY_PRINT); //transforma o array em json
+		file_put_contents('contatos.json', $contatosJson); // salva o conteúdo no arquivo contatos.json
+		header("Location: index.phtml");
+
 	}
 
 	function cadastrar(){
@@ -21,18 +29,13 @@
 			
 		array_push($contatosAuxiliar, $contato);
 
-		$contatosJson = json_encode($contatosAuxiliar, JSON_PRETTY_PRINT);
-
-		file_put_contents('contatos.json', $contatosJson);
-		
-		header("Location: index.phtml");
+		salvarArquivo($contatosAuxiliar);
 	
 	}
 	
 	function pegarContatos(){
 		
-		$contatosAuxiliar = abrirArquivo();
-		
+		$contatosAuxiliar = abrirArquivo();''
 		return $contatosAuxiliar;
 		
 	}
@@ -51,11 +54,7 @@
 			}
 		}
 		
-		$contatosJson = json_encode($contatosAuxiliar, JSON_PRETTY_PRINT);
-		
-		file_put_contents('contatos.json', $contatosJson);
-	
-		header("Location: index.phtml");
+		salvarArquivo($contatosAuxiliar);
 	
 	}
 
@@ -85,11 +84,7 @@
 			}
 		}
 
-		$contatosJson = json_encode($contatosAuxiliar, JSON_PRETTY_PRINT);
-
-		file_put_contents('contatos.json', $contatosJson);
-		
-		header("Location: index.phtml");
+		salvarArquivo($contatosAuxiliar);
 
 	}
 
