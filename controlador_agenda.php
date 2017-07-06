@@ -2,18 +2,19 @@
 
 	function abrirArquivo(){
 
-		$contatosAuxiliar = file_get_contents('contatos.json'); //pega o conteúdo do arquivo json
-		$contatosAuxiliar = json_decode($contatosAuxiliar, true); //trnasforma o conteúdo em array
+		$contatosAuxiliar = file_get_contents('contatos.json');
+		$contatosAuxiliar = json_decode($contatosAuxiliar, true);
 
 		return $contatosAuxiliar;
 	}
 
 	function salvarArquivo($contatosAuxiliar){
 
-		$contatosJson = json_encode($contatosAuxiliar, JSON_PRETTY_PRINT); //transforma o array em json
-		file_put_contents('contatos.json', $contatosJson); // salva o conteúdo no arquivo contatos.json
-		header("Location: index.phtml");
+		$contatosJson = json_encode($contatosAuxiliar, JSON_PRETTY_PRINT);
 
+		file_put_contents('contatos.json', $contatosJson);
+		
+		header("Location: index.phtml");
 	}
 
 	function cadastrar(){
@@ -35,7 +36,8 @@
 	
 	function pegarContatos(){
 		
-		$contatosAuxiliar = abrirArquivo();''
+		$contatosAuxiliar = abrirArquivo();
+		
 		return $contatosAuxiliar;
 		
 	}
