@@ -1,7 +1,6 @@
 <?php 
-
 	require 'controlador_agenda.php'; 
-	$meusContatos = pegarContatos();
+	$meusContatos = pegarContatos($_GET['nomeBuscado']);
 ?>
 
 <!DOCTYPE html>
@@ -49,7 +48,31 @@
 			</div>
 		</div>
 
-		<br />
+		<br/>
+
+		<form class="form-inline" method="GET" action="">
+			<fieldset>
+
+				<!-- Text input-->
+				<div class="form-group">
+				  <label class="col-md-4 control-label" for="nomeBuscado">Busque o contato:</label>  
+				  <div class="col-md-4">
+				  <input id="nomeBuscado" name="nomeBuscado" type="text" placeholder="Digite o nome do contato" class="form-control input-md">
+				    
+				  </div>
+				</div>
+
+				<!-- Button -->
+				<div class="form-group">
+				  <label class="col-md-4 control-label" for="singlebutton"></label>
+				  <div class="col-md-4">
+				    <button id="singlebutton" class="btn btn-info">Buscar</button>
+				  </div>
+				</div>
+
+			</fieldset>
+		</form>
+
 		
 		<!--CONTATOS-->
 		<div class="row">
