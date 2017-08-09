@@ -1,14 +1,14 @@
-[
-    {
-        "id": "595cf51f03e08",
-        "nome": "Anne",
-        "email": "annezitaa@ble.com",
-        "telefone": ""
-    },
-    {
+{
+    "1": {
         "id": "595cfaa69145d",
         "nome": "Ninis",
         "email": "rsrs@kkk.haha",
-        "telefone": "99887766"
+        "telefone": "1"
+    },
+    "2": {
+        "id": "598b08d046c9b",
+        "nome": "AA",
+        "email": "",
+        "telefone": "999999999"
     }
-]
+}

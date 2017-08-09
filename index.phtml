@@ -1,6 +1,17 @@
 <?php 
+
+	session_start();
+
+		$existe = isset($_SESSION['usuario_online']);
+
+		if($existe == false){
+			//redirecionar
+			header("Location: login.php");
+		}
+
 	require 'controlador_agenda.php'; 
 	$meusContatos = pegarContatos($_GET['nomeBuscado']);
+
 ?>
 
 <!DOCTYPE html>
@@ -16,7 +27,10 @@
 	
 	<div class="container" style="margin-top: 30px;">
 
-		<h3>MINHA AGENDA DE CONTATOS</h3>
+		<h3 align="center">Agenda de Contatos</h3> 		
+
+		<a href="verifica_usuario.php?acao=sair">Sair</a>
+
 		<br />
 		
 		<!-- CADASTRO-->
@@ -26,23 +40,23 @@
 				  
 				  <!--nome-->
 				  <div class="form-group">
-				    <label for="nome">Nome</label>
+				    <label for="nome">Nome:</label>
 				    <input name="nome" type="text" class="form-control" id="nome">
 				  </div>
 				  
 				  <!--email-->
 				  <div class="form-group">
-				    <label for="email">Email</label>
+				    <label for="email">Email:</label>
 				    <input name="email" type="email" class="form-control" id="email">
 				  </div>
 
 				  <!--telefone-->
 				  <div class="form-group">
-				    <label for="telefone">Telefone</label>
-				    <input name= "telefone" type="text" class="form-control" id="telefone">
-				  </div>
+				    <label for="telefone">Telefone:</label>
+				    <input name= "telefone" type="number" class="form-control" id="telefone">
+				  </div>                                                                                                                                                                       
 				  
-				  <button type="submit" class="btn btn-default">CADASTRAR</button>
+				  <button type="submit" class="btn btn-info">Cadastrar</button>
 				
 				</form>
 			</div>
@@ -50,30 +64,15 @@
 
 		<br/>
 
-		<form class="form-inline" method="GET" action="">
-			<fieldset>
+		<form class="form-inline" method="GET"> 
 
-				<!-- Text input-->
-				<div class="form-group">
-				  <label class="col-md-4 control-label" for="nomeBuscado">Busque o contato:</label>  
-				  <div class="col-md-4">
-				  <input id="nomeBuscado" name="nomeBuscado" type="text" placeholder="Digite o nome do contato" class="form-control input-md">
-				    
-				  </div>
-				</div>
+			<label for="nomeBuscado">Busca:</label>
+			<input type="text" name="nomeBuscado" id="nomeBuscado" class="form-control input-md">
+			<button class="btn btn-info">Buscar</button>
 
-				<!-- Button -->
-				<div class="form-group">
-				  <label class="col-md-4 control-label" for="singlebutton"></label>
-				  <div class="col-md-4">
-				    <button id="singlebutton" class="btn btn-info">Buscar</button>
-				  </div>
-				</div>
-
-			</fieldset>
 		</form>
 
-		
+
 		<!--CONTATOS-->
 		<div class="row">
 			<div class="col-md-12">
@@ -99,7 +98,7 @@
 							<td><?= $contato['telefone'] ?></td> 
 							<td>
 								<a href="controlador_agenda.php?acao=excluir&id=<?= $contato['id'] ?> ">Excluir |</a>
-								<a href ="editar.php?id=<?= $contato['id']?>">Editar</a>
+								<a href ="editar.php?id=<?= $contato['id']?>">Editar</a>						
 							</td>
 						</tr>
 						<?php endforeach; ?>

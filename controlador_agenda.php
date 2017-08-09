@@ -1,15 +1,18 @@
 <?php
+
 	function abrirArquivo(){
 		$contatosAuxiliar = file_get_contents('contatos.json');
 		$contatosAuxiliar = json_decode($contatosAuxiliar, true);
 		return $contatosAuxiliar;
 	}
+
 	function salvarArquivo($contatosAuxiliar){
 		$contatosJson = json_encode($contatosAuxiliar, JSON_PRETTY_PRINT);
 		file_put_contents('contatos.json', $contatosJson);
 		
 		header("Location: index.phtml");
 	}
+
 	function cadastrar($nome, $email, $telefone){
 			
 		$contatosAuxiliar = abrirArquivo();
@@ -37,7 +40,7 @@
 
 		 } else {
 
-		 	foreach ($contatosAuxiliar as $contato) {
+		 	foreach ($contatosAuxiliar as $contato) { //iteração
 		 		if (strtolower($contato['nome']) == strtolower($busca)) {
 		 			$contatosEncontrados[] = $contato;
 		 		}
@@ -67,7 +70,7 @@
 		$contatosAuxiliar = abrirArquivo();
 
 		foreach ($contatosAuxiliar as $contato){ //iteração
-			if ($contato['nome'] == $id){
+			if ($contato['id'] == $id){
 				return $contato;
 			}
 		}
@@ -87,6 +90,7 @@
 		}
 		salvarArquivo($contatosAuxiliar);
 	}
+	
 	if ($_GET['acao'] == 'cadastrar') {
 		cadastrar($_POST['nome'], $_POST['email'], $_POST['telefone']);
 	} elseif ($_GET['acao'] == 'excluir'){
