@@ -1,29 +1,28 @@
 <?php
 
 	function abrirArquivo(){
-		$contatosAuxiliar = file_get_contents('contatos.json');
-		$contatosAuxiliar = json_decode($contatosAuxiliar, true);
+		$contatosAuxiliar = file_get_contents('contatos.json'); // lê o arquivo .json
+		$contatosAuxiliar = json_decode($contatosAuxiliar, true); // converte o json em array
 		return $contatosAuxiliar;
 	}
 
 	function salvarArquivo($contatosAuxiliar){
-		$contatosJson = json_encode($contatosAuxiliar, JSON_PRETTY_PRINT);
-		file_put_contents('contatos.json', $contatosJson);
-		
-		header("Location: index.phtml");
+		$contatosJson = json_encode($contatosAuxiliar, JSON_PRETTY_PRINT); //converte array para json, com uma visualização melhor
+		file_put_contents('contatos.json', $contatosJson); //salva os dados em um arquivo .json
+		header("Location: index.phtml"); //redireciona a página
 	}
 
 	function cadastrar($nome, $email, $telefone){
 			
 		$contatosAuxiliar = abrirArquivo();
 		$contato = [
-		 	'id'       => uniqid(),
-            'nome'     => $nome,
-            'email'    => $email,
-            'telefone' => $telefone
-        ];
+		 	'id'       => uniqid(), 
+            		'nome'     => $nome,
+            		'email'    => $email,
+            		'telefone' => $telefone
+        	];
 			
-		array_push($contatosAuxiliar, $contato);
+		array_push($contatosAuxiliar, $contato); //adiciona elementos no final do array
 		salvarArquivo($contatosAuxiliar);
 	
 	}
@@ -31,7 +30,6 @@
 	function pegarContatos($busca = null){
 		
 		$contatosAuxiliar = abrirArquivo();
-
 		$contatosEncontrados = [];
 
 		if ($busca == null OR $busca == "") {
@@ -40,7 +38,7 @@
 
 		 } else {
 
-		 	foreach ($contatosAuxiliar as $contato) { //iteração
+		 	foreach ($contatosAuxiliar as $contato) { //itera sobre o array
 		 		if (strtolower($contato['nome']) == strtolower($busca)) {
 		 			$contatosEncontrados[] = $contato;
 		 		}
@@ -54,7 +52,7 @@
 		$contatosAuxiliar = abrirArquivo();
 		print_r($contatosAuxiliar);
 		
-		foreach ($contatosAuxiliar as $posicao => $contato){ //iteração
+		foreach ($contatosAuxiliar as $posicao => $contato){ //itera sobre o array
 			if($id == $contato['id']) {			
 				unset($contatosAuxiliar[$posicao]);
 			
@@ -78,13 +76,13 @@
 
 
 	function SalvarContatoEditado($id, $nome, $email, $telefone){
+		
 		$contatosAuxiliar = abrirArquivo();
 		foreach ($contatosAuxiliar as $posicao => $contato){ //iteração
 			if ($contato['id'] == $id){
-				
 				$contatosAuxiliar[$posicao]['nome']     = $nome;
-             	$contatosAuxiliar[$posicao]['email']    = $email;
-             	$contatosAuxiliar[$posicao]['telefone'] = $telefone;
+             			$contatosAuxiliar[$posicao]['email']    = $email;
+             			$contatosAuxiliar[$posicao]['telefone'] = $telefone;
 				break;
 			}
 		}
